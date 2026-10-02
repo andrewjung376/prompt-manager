@@ -63,6 +63,39 @@ def main():
     except (KeyboardInterrupt, EOFError):
         print("\n프로그램을 종료합니다.")
 
+def input_non_empty(message):
+    while True:
+        value = input(message).strip()
+        if value:
+            return value
+        print("값을 입력해야 합니다. 다시 입력하세요.")
+
+
+def input_number(message, min_value, max_value, retry=False):
+    while True:
+        value = input(message).strip()
+        if value.isdigit() and min_value <= int(value) <= max_value:
+            return int(value)
+        print(f"{min_value}~{max_value} 사이의 번호를 입력하세요.")
+        if not retry:
+            return None
+
+
+def select_category(allow_custom=False):
+    for number, name in enumerate(categories, 1):
+        print(f"{number}) {name}")
+    custom_no = len(categories) + 1
+    if allow_custom:
+        print(f"{custom_no}) 직접 입력")
+    last_no = custom_no if allow_custom else len(categories)
+    selected = input_number("선택: ", 1, last_no, retry=True)
+    if allow_custom and selected == custom_no:
+        name = input_non_empty("새 카테고리 이름: ")
+        if name not in categories:
+            categories.append(name)
+        return name
+    return categories[selected - 1]
+
 
 if __name__ == "__main__":
     main()
