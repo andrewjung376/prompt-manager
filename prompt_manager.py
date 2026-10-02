@@ -60,6 +60,8 @@ def main():
                 break
             elif choice == "1":
                 add_prompt()
+            elif choice == "2":
+                show_list()
             else:
                 print("올바른 번호를 입력하세요.")
     except (KeyboardInterrupt, EOFError):
@@ -108,6 +110,25 @@ def add_prompt():
         {"title": title, "content": content, "category": category, "favorite": False}
     )
     print("\n프롬프트가 추가되었습니다!")
+
+def format_prompt_line(number, prompt):
+    star = " ⭐" if prompt["favorite"] else ""
+    return f"{number}. [{prompt['category']}] {prompt['title']}{star}"
+
+
+def print_prompt_lines(items):
+    for number, prompt in items:
+        print(format_prompt_line(number, prompt))
+
+
+def show_list():
+    print("\n=== 프롬프트 목록 ===")
+    if not prompts:
+        print("등록된 프롬프트가 없습니다.")
+        return
+    print_prompt_lines(list(enumerate(prompts, 1)))
+    print(f"\n총 {len(prompts)}개의 프롬프트")
+
 
 if __name__ == "__main__":
     main()
