@@ -21,6 +21,8 @@ def main():
             if choice == "0":
                 print("프로그램을 종료합니다.")
                 break
+            else:
+                print("올바른 번호를 입력하세요.")
     except (KeyboardInterrupt, EOFError):
         print("\n프로그램을 종료합니다.")
 
