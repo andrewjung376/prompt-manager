@@ -62,6 +62,8 @@ def main():
                 add_prompt()
             elif choice == "2":
                 show_list()
+            elif choice == "3":
+                show_by_category()
             else:
                 print("올바른 번호를 입력하세요.")
     except (KeyboardInterrupt, EOFError):
@@ -120,7 +122,6 @@ def print_prompt_lines(items):
     for number, prompt in items:
         print(format_prompt_line(number, prompt))
 
-
 def show_list():
     print("\n=== 프롬프트 목록 ===")
     if not prompts:
@@ -128,6 +129,17 @@ def show_list():
         return
     print_prompt_lines(list(enumerate(prompts, 1)))
     print(f"\n총 {len(prompts)}개의 프롬프트")
+
+def show_by_category():
+    print("\n=== 카테고리별 조회 ===")
+    category = select_category()
+    items = [(n, p) for n, p in enumerate(prompts, 1) if p["category"] == category]
+    if not items:
+        print(f"\n[{category}] 카테고리에 등록된 프롬프트가 없습니다.")
+        return
+    print(f"\n[{category}] 카테고리 프롬프트:")
+    print_prompt_lines(items)
+    print(f"\n총 {len(items)}개의 프롬프트")
 
 
 if __name__ == "__main__":
