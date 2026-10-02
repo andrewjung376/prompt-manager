@@ -73,4 +73,4 @@ prompts = [
     {"title": "제목", "content": "내용", "category": "텍스트 생성", "favorite": False},
 ]
 ```
-
+문의: GitHub Issues 를 이용해 주세요.
