@@ -58,6 +58,8 @@ def main():
             if choice == "0":
                 print("프로그램을 종료합니다.")
                 break
+            elif choice == "1":
+                add_prompt()
             else:
                 print("올바른 번호를 입력하세요.")
     except (KeyboardInterrupt, EOFError):
@@ -96,6 +98,16 @@ def select_category(allow_custom=False):
         return name
     return categories[selected - 1]
 
+def add_prompt():
+    print("\n=== 프롬프트 추가 ===")
+    title = input_non_empty("제목: ")
+    content = input_non_empty("내용: ")
+    print("\n카테고리 선택:")
+    category = select_category(allow_custom=True)
+    prompts.append(
+        {"title": title, "content": content, "category": category, "favorite": False}
+    )
+    print("\n프롬프트가 추가되었습니다!")
 
 if __name__ == "__main__":
     main()
