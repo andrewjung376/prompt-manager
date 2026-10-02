@@ -64,6 +64,8 @@ def main():
                 show_list()
             elif choice == "3":
                 show_by_category()
+            elif choice == "4":
+                search_prompt()
             else:
                 print("올바른 번호를 입력하세요.")
     except (KeyboardInterrupt, EOFError):
@@ -141,6 +143,20 @@ def show_by_category():
     print_prompt_lines(items)
     print(f"\n총 {len(items)}개의 프롬프트")
 
+def search_prompt():
+    print("\n=== 프롬프트 검색 ===")
+    keyword = input_non_empty("검색어: ").lower()
+    items = [
+        (n, p)
+        for n, p in enumerate(prompts, 1)
+        if keyword in p["title"].lower() or keyword in p["content"].lower()
+    ]
+    if not items:
+        print("\n검색 결과가 없습니다.")
+        return
+    print("\n검색 결과:")
+    print_prompt_lines(items)
+    print(f"\n{len(items)}개의 프롬프트를 찾았습니다.")
 
 if __name__ == "__main__":
     main()
