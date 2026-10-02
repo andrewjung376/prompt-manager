@@ -68,6 +68,10 @@ def main():
                 search_prompt()
             elif choice == "5":
                 show_detail()
+            elif choice == "6":
+                toggle_favorite()
+            elif choice == "7":
+                show_favorites()
             else:
                 print("올바른 번호를 입력하세요.")
     except (KeyboardInterrupt, EOFError):
@@ -177,6 +181,29 @@ def show_detail():
     print(line)
     print(f"내용:\n{prompt['content']}")
     print(line)
+
+def toggle_favorite():
+    print("\n=== 즐겨찾기 관리 ===")
+    if not prompts:
+        print("등록된 프롬프트가 없습니다.")
+        return
+    number = input_number("프롬프트 번호 입력: ", 1, len(prompts))
+    if number is None:
+        return
+    prompt = prompts[number - 1]
+    prompt["favorite"] = not prompt["favorite"]
+    state = "추가" if prompt["favorite"] else "해제"
+    print(f"'{prompt['title']}' 프롬프트를 즐겨찾기에 {state}했습니다!")
+
+
+def show_favorites():
+    print("\n=== 즐겨찾기 목록 ===")
+    items = [(n, p) for n, p in enumerate(prompts, 1) if p["favorite"]]
+    if not items:
+        print("즐겨찾기한 프롬프트가 없습니다.")
+        return
+    print_prompt_lines(items)
+    print(f"\n총 {len(items)}개의 즐겨찾기")
 
 if __name__ == "__main__":
     main()
